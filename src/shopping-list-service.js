@@ -11,22 +11,25 @@ const getAll = (knex) => {
 
 const get = (knex, id) => {
 
-  // asdfs
+  return knex
+    .select('*')
+    .from('shopping_list')
+    .where('id', id);
 };
 
 const create = (knex, data) => {
 
-  // sdfasdf
+  return knex('shopping_list').insert(data);
 };
 
 const update = (knex, id, data) => {
 
-  // sdfasdf
+  return knex('shopping_list').where({ id: id }).update(data);
 };
 
 const destroy = (knex, id) => {
 
-  // sdfasdf
+  return knex('shopping_list').del().where({ id: id });
 };
 
 

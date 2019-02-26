@@ -65,72 +65,178 @@ describe('getAll', () => {
       expect(results).to.deep.equal(seedData);
     });
   });
-
 });
 
-// describe('get', () => {
+describe('get', () => {
 
-//   beforeEach(() => {
-//     // create DB
-//   });
+  let seedData = null;
 
-//   afterEach(() => {
-//     // destroy DB
-//   });
+  beforeEach(() => {
 
-//   it('xxxxxx', () => {
+    seedData = [
+      {
+        "category": "Main",
+        "checked": false,
+        "date_added": new Date('2029-01-21T05:00:00.000Z'),
+        "id": 1,
+        "name": "Fish Tricks",
+        "price": "13.10",
+      },
+      {
+        "category": "Snack",
+        "checked": false,
+        "date_added": new Date('2029-01-21T05:00:00.000Z'),
+        "id": 2,
+        "name": "Not Dogs",
+        "price": "4.99",
+      },
+      {
+        "category": "Snack",
+        "checked": false,
+        "date_added": new Date('2029-01-21T05:00:00.000Z'),
+        "id": 3,
+        "name": "Bluffalo Wings",
+        "price": "5.50",
+      }
+    ];
 
-//   });
+    return db('shopping_list').truncate().then(() => {
 
-// });
-// describe('create', () => {
+      return db('shopping_list').insert(seedData);
+    });
+  });
 
-//   beforeEach(() => {
-//     // create DB
-//   });
+  afterEach(() => {
 
-//   afterEach(() => {
-//     // destroy DB
-//   });
+    return db('shopping_list').truncate();
+  });
 
-//   it('xxxxxx', () => {
+  it('xxxxxx', () => {
 
-//   });
+    return service.get(db, 1).then((results) => {
 
-// });
-// describe('update', () => {
+      expect(results[0]).to.deep.equal(seedData[0]);
+    });
+  });
+});
 
-//   beforeEach(() => {
-//     // create DB
-//   });
+describe('create', () => {
 
-//   afterEach(() => {
-//     // destroy DB
-//   });
+  let newItem = null;
 
-//   it('xxxxxx', () => {
+  beforeEach(() => {
 
-//   });
+    newItem = {
+      "category": "Main",
+      "checked": false,
+      "date_added": new Date('2029-01-21T05:00:00.000Z'),
+      "id": 1,
+      "name": "Fish Tricks",
+      "price": "13.10",
+    };
 
-// });
-// describe('destroy', () => {
+    return db('shopping_list').truncate();
+  });
 
-//   beforeEach(() => {
-//     // create DB
-//   });
+  afterEach(() => {
 
-//   afterEach(() => {
-//     // destroy DB
-//   });
+    return db('shopping_list').truncate();
+  });
 
-//   it('xxxxxx', () => {
+  it('xxxxxx', () => {
 
-//   });
+    return service.create(db, newItem).then(() => {
 
-// });
+      return service.getAll(db).then((results => {
 
+        expect(results[0]).to.deep.equal(newItem);
+      }));
+    });
+  });
+});
 
+describe('update', () => {
 
-// create db
-// do test
-// empty db
+  let seedData = null;
+
+  beforeEach(() => {
+
+    seedData = [
+      {
+        "category": "Main",
+        "checked": false,
+        "date_added": new Date('2029-01-21T05:00:00.000Z'),
+        "id": 1,
+        "name": "Fish Tricks",
+        "price": "13.10",
+      },
+    ];
+
+    return db('shopping_list').truncate().then(() => {
+
+      return db('shopping_list').insert(seedData);
+    });
+  });
+
+  afterEach(() => {
+
+    return db('shopping_list').truncate();
+  });
+
+  it('xxxxxx', () => {
+
+    const updates = {
+      "name": "Bluffalo Wings",
+    };
+
+    return service.update(db, seedData[0].id, updates).then(() => {
+
+      return service.get(db, seedData[0].id).then((results) => {
+
+        expect(results[0].name).to.equal(updates.name);
+      });
+
+    });
+  });
+});
+
+describe('destroy', () => {
+
+  let seedData = null;
+
+  beforeEach(() => {
+
+    seedData = [
+      {
+        "category": "Main",
+        "checked": false,
+        "date_added": new Date('2029-01-21T05:00:00.000Z'),
+        "id": 1,
+        "name": "Fish Tricks",
+        "price": "13.10",
+      },
+    ];
+
+    return db('shopping_list').truncate().then(() => {
+
+      return db('shopping_list').insert(seedData);
+    });
+  });
+
+  afterEach(() => {
+
+    return db('shopping_list').truncate();
+  });
+
+  it('xxxxxx', () => {
+
+    return service.destroy(db, seedData[0].id).then(() => {
+
+      return service.get(db, seedData[0].id).then((results) => {
+
+        expect(results).to.deep.equal([]);
+      });
+
+    });
+  });
+});
