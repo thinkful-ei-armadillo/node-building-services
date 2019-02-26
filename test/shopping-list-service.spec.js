@@ -58,7 +58,7 @@ describe('getAll', () => {
     return db('shopping_list').truncate();
   });
 
-  it('xxxxxx', () => {
+  it('should return all the item', () => {
 
     return service.getAll(db).then((results) => {
 
@@ -111,7 +111,7 @@ describe('get', () => {
     return db('shopping_list').truncate();
   });
 
-  it('xxxxxx', () => {
+  it('should return the specified item', () => {
 
     return service.get(db, 1).then((results) => {
 
@@ -183,7 +183,7 @@ describe('update', () => {
     return db('shopping_list').truncate();
   });
 
-  it('xxxxxx', () => {
+  it('should update the specified item', () => {
 
     const updates = {
       "name": "Bluffalo Wings",
@@ -228,7 +228,7 @@ describe('destroy', () => {
     return db('shopping_list').truncate();
   });
 
-  it('xxxxxx', () => {
+  it('should delete the specified item', () => {
 
     return service.destroy(db, seedData[0].id).then(() => {
 
